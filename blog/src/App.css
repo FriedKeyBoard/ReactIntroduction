@@ -49,6 +49,12 @@ body {
   padding-right: 20px;
 }
 
+.modal {
+  margin-top: 20px;
+  padding: 20px;
+  background: #eee;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
