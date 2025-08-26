@@ -6,6 +6,7 @@ import './App.css'
 function App() {
     let [title,setTitle] = useState(['남자 코트 추천', '남자 바지 추천', '연희동 맛집 추천']);
     let [likeCount, setLikeCount] = useState(0);
+    let [modal, setModal] = useState(false);
 
     let posts = '고기 맛집'
     function titleMod() {
@@ -32,12 +33,15 @@ function App() {
               <hr/>
           </div>
           <div className="list">
-              <h3> {title[2]} </h3>
+              <h3 onClick={ () => modal === false ? setModal(true) : setModal(false)}> {title[2]} </h3>
               <p>2월 17일 발행</p>
               <hr/>
           </div>
 
-          <Modal></Modal>
+          {
+            modal === true ? <Modal></Modal> : null
+          }
+
       </div>
   )
 }
