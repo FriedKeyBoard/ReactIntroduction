@@ -7,11 +7,19 @@ function App() {
     let [title,setTitle] = useState(['남자 코트 추천', '남자 바지 추천', '연희동 맛집 추천']);
     let [likeCount, setLikeCount] = useState([0,0,0]);
     let [modal, setModal] = useState(false);
+    let [titleNumber, setTitleNumber] = useState(0);
 
 
     function titleMod() {
         var newArr = [...title];
         newArr.sort();
+
+        setTitle(newArr);
+    }
+    
+    function titleChange(){
+        var newArr = [...title];
+        newArr = ['여자 코트 추천', '남자 바지 추천', '연희동 맛집 추천'];
 
         setTitle(newArr);
     }
@@ -49,7 +57,7 @@ function App() {
               title.map(function (a,i){
                   return (
                       <div className="list" key={i}>
-                          <h3 onClick={ () => setModal(!modal)}> {title[i]} <span onClick={() => addLikeCount(i)}>👍</span> {likeCount[i]} </h3>
+                          <h3 onClick={ () => {setModal(!modal); setTitleNumber(i)}}> {title[i]} <span onClick={() => addLikeCount(i)}>👍</span> {likeCount[i]} </h3>
                           <p>2월 17일 발행</p>
                           <hr/>
                       </div>
@@ -58,20 +66,21 @@ function App() {
           }
 
           {
-            modal === true ? <Modal></Modal> : null
+            modal === true ? <Modal color={'yellow'} title={title} titleChange={titleChange} titleNumber={titleNumber}></Modal> : null
           }
 
       </div>
   )
 }
 
-function Modal(){
+function Modal(props){
     return (
         <>
-            <div className="modal">
-                <h2>제목</h2>
+            <div className="modal" style={{background : props.color}}>
+                <h2>{props.title[props.titleNumber]}</h2>
                 <p>날짜</p>
                 <p>상세내용</p>
+                <button onClick={props.titleChange}>글수정</button>
             </div>
             <div></div>
         </>
