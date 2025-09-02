@@ -8,6 +8,7 @@ function App() {
     let [likeCount, setLikeCount] = useState([0,0,0]);
     let [modal, setModal] = useState(false);
     let [titleNumber, setTitleNumber] = useState(0);
+    let [inputValue, setInputValue] = useState('');
 
 
     function titleMod() {
@@ -28,6 +29,35 @@ function App() {
         var newlikeCount = {...likeCount}
         newlikeCount[i] = newlikeCount[i]+1;
         setLikeCount(newlikeCount);
+    }
+
+    function addList(str){
+        var newArr = [...title];
+
+        for (var i = newArr.length-1; i>=0; i--){
+            newArr[i+1] = newArr[i];
+        }
+        newArr[0] = str;
+
+        setTitle(newArr);
+    }
+
+    function deleteList(num){
+        var newArr = [...title];
+        var modArr = [];
+
+        for (var i = 0; i < newArr.length-1; i++){
+
+            if(i < num){
+                modArr[i] = newArr[i];
+            }else {
+                modArr[i] = newArr[i+1];
+            }
+        }
+
+        console.log(modArr);
+
+        setTitle(modArr);
     }
 
   return (
@@ -57,13 +87,16 @@ function App() {
               title.map(function (a,i){
                   return (
                       <div className="list" key={i}>
-                          <h3 onClick={ () => {setModal(!modal); setTitleNumber(i)}}> {title[i]} <span onClick={() => addLikeCount(i)}>👍</span> {likeCount[i]} </h3>
-                          <p>2월 17일 발행</p>
+                          <h3 onClick={ () => {setModal(!modal); setTitleNumber(i)}}> {title[i]} <span onClick={(e) => {e.stopPropagation(); addLikeCount(i)}}>👍</span> {likeCount[i]} </h3>
+                          <p>2월 17일 발행 <button onClick={ () => {deleteList(i)} }>삭제</button></p>
                           <hr/>
                       </div>
                   )
               })
           }
+
+          <input type="text" onChange={(e)=>{setInputValue(e.target.value);}}/>
+          <button onClick={() => {addList(inputValue)} }>추가</button>
 
           {
             modal === true ? <Modal color={'yellow'} title={title} titleChange={titleChange} titleNumber={titleNumber}></Modal> : null
