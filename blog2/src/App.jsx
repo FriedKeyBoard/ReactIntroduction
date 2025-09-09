@@ -34,30 +34,32 @@ function App() {
     function addList(str){
         var newArr = [...title];
 
-        for (var i = newArr.length-1; i>=0; i--){
-            newArr[i+1] = newArr[i];
-        }
-        newArr[0] = str;
+        // for (var i = newArr.length-1; i>=0; i--){
+        //     newArr[i+1] = newArr[i];
+        // }
+        // newArr[0] = str;
+
+        newArr.unshift(str);
 
         setTitle(newArr);
     }
 
     function deleteList(num){
         var newArr = [...title];
-        var modArr = [];
+        // var modArr = [];
+        //
+        // for (var i = 0; i < newArr.length-1; i++){
+        //
+        //     if(i < num){
+        //         modArr[i] = newArr[i];
+        //     }else {
+        //         modArr[i] = newArr[i+1];
+        //     }
+        // }
 
-        for (var i = 0; i < newArr.length-1; i++){
+        newArr.splice(num, 1);
 
-            if(i < num){
-                modArr[i] = newArr[i];
-            }else {
-                modArr[i] = newArr[i+1];
-            }
-        }
-
-        console.log(modArr);
-
-        setTitle(modArr);
+        setTitle(newArr);
     }
 
   return (
