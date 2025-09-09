@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -103,6 +103,7 @@ function App() {
           {
             modal === true ? <Modal color={'yellow'} title={title} titleChange={titleChange} titleNumber={titleNumber}></Modal> : null
           }
+          <Modal2></Modal2>
 
       </div>
   )
@@ -120,6 +121,24 @@ function Modal(props){
             <div></div>
         </>
     )
+}
+
+class Modal2 extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state={
+            name : 'kim',
+            age : 20
+        }
+    }
+    render() {
+        return(
+            <div>
+                안녕 {this.state.age}
+                <button onClick={()=>{this.setState({age : 21})}}>버튼</button>
+            </div>
+        )
+    }
 }
 
 export default App
